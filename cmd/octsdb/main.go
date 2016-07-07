@@ -54,8 +54,9 @@ func main() {
 	}
 
 	wg := new(sync.WaitGroup)
-	for _, addr := range addrs {
+	for i := range addrs {
 		wg.Add(1)
+		addr := addrs[i]
 		publish := func(resp *openconfig.SubscribeResponse) {
 			if notif := resp.GetUpdate(); notif != nil {
 				pushToOpenTSDB(addr, c, config, notif)
